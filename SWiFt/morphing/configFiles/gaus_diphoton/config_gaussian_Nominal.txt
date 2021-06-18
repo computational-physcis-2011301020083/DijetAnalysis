@@ -1,0 +1,21 @@
+################################## Set width of gaussian shapes 
+############ can choose between resolution function or a constant width
+
+##### use resolution function 
+resFunc     = [0]+[1]*((x-100)/100)                                    ; resolution function 
+par         = 1.54                                                    ; par #0 value 
+par         = 0.905                                                    ; par #1 value
+
+##### use fixed with 
+#resFunc      = [0]                                                      ; constant resolution function  
+#par          = 0.01                                                     ; constant width will be set to par*mass, e.g. 15%*mass
+
+################################### Name and range
+sigName   = gaus         ; signal name 
+massMin   = 50.          ; minimum mass above which you want gaussian shapes (GeV) 
+massMax   = 2000.        ; maximum mass below which you want gaussian shapes (GeV)
+
+################################### Output files 
+path        = ../output/gaus_diphoton                        ; folder to store all the output files in              
+pdf         = _res.pdf                                ; output pdf plot
+oRoot       = _res.root                               ; output txt file with interpolation parameters

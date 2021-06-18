@@ -1,0 +1,122 @@
+
+######################################
+#
+# INPUTS
+#
+######################################
+
+#======= Data/MC/Any distribution to SWiFt over =======#  
+inputFile       : /eos/user/d/ding/SWAN_projects/ZplusX/data3/HTmass.root
+inputDir        : x                                                             ; name of TDirectory. Type "x" if there is no TDir                
+inputHist       : data_highZPt100_LeadJ_HT
+
+#======= Signal =======#
+nomSigFile      : ../morphing/output/gaus_dijet/gaus_10per.root                         ; signal parameterizations
+
+#nomSigFile      : ../morphing/output/qStar_dijet/qStar_nominal.root               
+#JES1upSigFile   : ../morphing/output/qStar_dijet/qStar_JES1_1up0.root               
+#JES1upSigFile   : ../morphing/output/qStar_dijet/qStar_JES2_1up0.root
+#JES1upSigFile   : ../morphing/output/qStar_dijet/qStar_JES3_1up0.root
+#JES1downSigFile : ../morphing/output/qStar_dijet/qStar_JES1_1down0.root               
+#JES1downSigFile : ../morphing/output/qStar_dijet/qStar_JES2_1down0.root
+#JES1downSigFile : ../morphing/output/qStar_dijet/qStar_JES3_1down0.root
+
+
+######################################
+#
+# OUTPUTS
+#
+######################################
+
+path            : ../output                                                   ; folder to store all your output in         
+pdfName         : pdf/data3HTmass/data_highZPt100_LeadJ_HT
+oRootName       : root/data3HTmass/data_highZPt100_LeadJ_HT
+
+######################################
+#
+# Background and Signal functions 
+#
+######################################
+
+#======= Define Bkg functions =======#
+bkgFunc         : dijet3Param     ; nominal bkg function 
+par             : 0.2             ; these parameters initialize the global fit only  
+par             : 8.7 
+par             : -5.1 
+
+bkgFunc2        : dijet4Param     ; alternate bkg function 
+par2            : 0.2             ; these parameters initialize the global fit only
+par2            : 8.0  
+par2            : -5.0 
+par2            : 0.01 
+
+#======= Define Signal function =======#
+SonlyFunc       : GFunc           ; Use "GFunc" for gaussian signals and "GrLFunc" for the gaussian + reverse landaus 
+norm            : 0.0   
+
+######################################
+#
+# MINUIT Settings 
+#
+######################################
+
+integrator      : Gauss  
+errorType       : 1       ; 0.5 = for minimizing likelihoods ,1 = for minimizing chi2 
+fitStrategy     : 2         ; 0 = low quality fits, 1 = medium quality fits, 2 = high quality fits  
+maxIterations   : 500000    ; maximum number of fcn calls that Minuit can make 
+tolSimplex      : 0.05      ; simplex tolerance (default = 0.05)                                                            
+tolMigrad       : 0.05      ; migrad internally multiplies this by 1e-3 (default = 5e-5)
+quietMinuit     : 1         ; kill Minuit fitting details 
+quietFitInfo    : 1         ; kill summary of fitting, i.e. parameters and errors on them
+
+######################################
+#
+# SWiFt SETTINGS  
+#
+######################################
+
+#======= Run the LLH ratio scan ... or not =======#
+doSWiFtScan     : 0         ; 0 = make nominal SWiFt bkg only, 1 = do everything (LLH ratio scan, best SWiFt bkg making, signal subtraction, limits) 
+
+#======= Compute 95% upper limit =======#
+do95Scan        : 0         ; 0 = do not compute, 1 = compute
+tol             : 0.001     ; tolerance for binary search to find 95% signal
+quiet95FitInfo  : 1         ; quiet fitting info while scanning for 95% upper limit 
+lumi            : 140.0      ; luminosity in fb-1 
+
+#======= Window selection =======#
+windowWidthLow  : 40        ; % of window center  
+windowWidthHigh : 40       ; % of window center    
+windowNum       : 1   
+windowNumAlways : 1         ; minimium number of windows scanned at the edges
+
+#======= Binning & Ranges =======#
+rebin           : 1          ; rebin factor for histograms
+start           : 800.      ; starting window center mass for SWiFt scan (GeV)
+end             : 1000.      ; ending window center mass for SWiFt (GeV)
+xminfit         : 280.      ; minimum mass for fitting (GeV)
+xmaxfit         : 2760.      ; maximum mass for fitting (GeV)
+
+#======= Signal subtraction ========# 
+sigSubLLHCut    : 0.00      ; local p-value cut that triggers signal subtraction
+                             ; 0.001 (0.02) is roughly a 3sigma (2sigma) local excess
+
+######################################
+#
+# ADD SYSTEMATICS 
+#
+######################################
+
+addSys          : 0         ; include signal systematics in the search (1 = yes, 0 = no)
+numJESNP        : 3         ; number of JES NP to be added to the likelihood
+numFlatNP       : 1         ; number of flat NP to be added to the likelihood (flats are all added in quadrature)
+scaleUn         : 1.0       ; scale uncertainty (FLAT in %)
+lumiUn          : 2.0       ; luminosity uncertainty (FLAT in %)  
+
+
+
+
+
+
+
+

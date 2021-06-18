@@ -1,0 +1,118 @@
+
+######################################
+#
+# INPUTS
+#
+######################################
+
+#======= Data/MC/Any distribution to SWiFt over =======#  
+inputFile       : ${PEPATH}/PE${PENUM}.root          ; data input root file 
+inputDir        : x                                                 ; name of TDirectory that data histogram lives in                
+inputHist       : mjj                                               ; name of data histogram 
+
+#======= Signal =======#
+nomSigFile      : ${SIGPATH}/${SIGFILE}
+JES1upSigFile   : ${SIGPATH}/${SIGJES1_1up}             
+JES1upSigFile   : ${SIGPATH}/${SIGJES2_1up}
+JES1upSigFile   : ${SIGPATH}/${SIGJES3_1up}
+JES1downSigFile : ${SIGPATH}/${SIGJES1_1down}              
+JES1downSigFile : ${SIGPATH}/${SIGJES2_1down}
+JES1downSigFile : ${SIGPATH}/${SIGJES3_1down}
+
+######################################
+#
+# OUTPUTS
+#
+######################################
+
+path            : ${OUTPATH}       ; folder to store all your output in         
+pdfName         : pdf/PE_seed${PENUM}_LLHScan    
+oRootName       : root/PE_seed${PENUM}_LLHScan                      
+
+######################################
+#
+# Background and Signal functions 
+#
+######################################
+
+#======= Define Bkg functions =======#
+bkgFunc         : dijet3Param     ; nominal bkg function 
+par             : 0.2             ; these parameters initialize the global fit only  
+par             : 8.7 
+par             : -5.1 
+
+bkgFunc2        : dijet4Param     ; alternate bkg function 
+par2            : 0.2             ; these parameters initialize the global fit only
+par2            : 8.0  
+par2            : -5.0 
+par2            : 0.01 
+
+#======= Define Signal function =======#
+SonlyFunc       : ${SIGTYPE}            
+norm            : 0.0   
+
+######################################
+#
+# MINUIT Settings 
+#
+######################################
+
+integrator      : Gauss  
+errorType       : 0.5       ; for minimizing likelihoods
+fitStrategy     : 2         ; 0 = low quality fits, 1 = medium quality fits, 2 = high quality fits  
+maxIterations   : 500000    ; maximum number of fcn calls that Minuit can make 
+tolSimplex      : 0.05      ; simplex tolerance (default = 0.05)                                                            
+tolMigrad       : 0.05       ; migrad internally multiplies this by 1e-3 (default = 5e-5)
+quietMinuit     : 1         ; kill Minuit fitting details 
+quietFitInfo    : 1         ; kill summary of fitting, i.e. parameters and errors on them
+
+######################################
+#
+# SWiFt SETTINGS  
+#
+######################################
+
+#======= Run the LLH ratio scan ... or not =======#
+doSWiFtScan     : 1         ; 0 = make nominal SWiFt bkg only, 1 = do everything (LLH ratio scan, best SWiFt bkg making, signal subtraction, limits) 
+
+#======= Compute 95% upper limit =======#
+do95Scan        : 0         ; 0 = do not compute, 1 = compute
+tol             : 0.001     ; tolerance for binary search to find 95% signal
+quiet95FitInfo  : 1         ; quiet fitting info while scanning for 95% upper limit 
+lumi            : 3.4       ; luminosity in fb-1 
+
+#======= Window selection =======#
+windowWidthLow  : 30         
+windowWidthHigh : 100          
+windowNum       : 20   
+windowNumAlways : 3
+
+#======= Binning & Ranges =======#
+rebin           : 1          ; rebin factor for histograms
+start           : 515.       ; starting window center mass for SWiFt scan   
+end             : 5821.      ; ending window center mass for SWiFt
+xminfit         : 460.      ; minimum mass for fitting
+xmaxfit         : 7057.      ; maximum mass for fitting 
+
+#======= Signal subtraction ========# 
+sigSubLLHCut    : 1e-3      ; local p-value cut that triggers signal subtraction 
+
+######################################
+#
+# ADD SYSTEMATICS 
+#
+######################################
+
+addSys          : 0         ; include signal systematics in the search (1 = yes, 0 = no)
+numJESNP        : 3         ; number of JES NP to be added to the likelihood
+numFlatNP       : 1         ; number of flat NP to be added to the likelihood (flats are all added in quadrature)
+scaleUn         : 1.0       ; scale uncertainty (FLAT in %)
+lumiUn          : 2.0       ; luminosity uncertainty (FLAT in %)  
+
+
+
+
+
+
+
+

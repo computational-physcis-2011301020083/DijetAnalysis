@@ -1,0 +1,95 @@
+
+
+This file will provide a full example of running SWiFt
+  1) Signal shapes will be created using the morphing folder
+  2) A resonance search will be conducted using the created signal shapes
+  3) Nice local p-value plots will be made
+  4) Pseudo-experiments will be performed using the SWiFt background - Condor will be used for this
+  5) A global p-value will be calculated 
+  6) The final limit plot will be made
+
+All the steps above should run out of the box. 
+Signal systematics will not be added to the results for now. 
+To used latest ROOT version, do : 
+  > lsetup root
+
+For the example, the High Mass dijet data will be used: 
+  inputs/data/dijets/dataLikeHistograms.2016.37fb-Resonance.root
+
+
+1) Generating the signal shape: 
+##################################
+As a simple example, resolution-width gaussian signal shapes will be created: 
+  > cd morphing/code/
+  > root -l -b -q 'morphGausSignal.C("../configFiles/gaus_dijet/config_gaussian_Nominal.txt")'
+
+In the config file passed to morphGausSignal.C above, you can change the width of the gaussian. 
+The outputs will be: 
+  output/gaus_dijet/gaus_res.pdf
+  output/gaus_dijet/gaus_res.root 
+
+The root file contains the gaussian parameters as a function of mass and this file will be passed to the SWiFt code.  
+
+2) Running SWiFt: 
+################################### 
+To run SWiFt over the dijet data using the resolution width gaussian signals, move to the SWiFt code folder from the morphing code folder: 
+  > cd ../../code/
+  > ./runSWiFt.sh ../configFiles/config_dijets_data.txt
+
+The configuration file read in by SWiFt is already set up to run on the dijet data with the res-width gaussian signals. 
+The boolean for the 95% CL calculation is on by default. 
+The outputs will be: 
+  output/pdf/data/dijet_gausRes_LLHScan.pdf
+  output/root/data/dijet_gausRes_LLHScan.root 
+The pdf file will contain all the SWiFt output plots and the root file will have a bunch of TGraphs with results
+
+3) Making a nice local p-value plot: 
+#################################### 
+After running over the data, a nice local p-value plot can be made by: 
+  > cd ../plotting/resonanceSearch/
+  > root -l -b -q overlayPvalueScans.C
+
+The output will be stored in the pdf folder. 
+For overlaying multiple p-value plots, run STEP 2) over multiple signals (eg. gaus width 5%, 7%) and then add the outputs to overlayPvalueScans.C.  
+
+4) Do Pseudo-experiments using the SWiFt background: 
+################################################### 
+PEs from the SWiFt background can be obtained only after Step 2). 
+This is becasue this step will used the SWiFt background stored in the .root file from Step 2). 
+
+Enter the folder with the condor runscript: 
+  > cd ../../code/condor/
+  > ./makeCondorCode_gausPE.sh
+
+After asking you to check the paths, this script will launch a 100 PEs by default to condor. For each PE, SWiFt will conduct its search and calculate limits. 
+You can increase the PEs to 1000 for smoother expected limits.  
+The output (plots, root, log, condor runlogs) will appear in a folder called condor/ in your SWiFt folder. 
+makeCondorCode uses a template configFile: configFiles/condor/config_dijets_PE_condor.txt. 
+Please take a look at the makeCondorCode and its config file to see how jobs are setup and launched.    
+
+You can monitor your jobs by: 
+  > condor_q username
+  > watch -n 1 condor_q username
+
+You can kill your condor jobs by: 
+  > condor_rm username
+
+5) Calculate global p-value from PEs: 
+#####################################
+After the PEs have finished, you can get the global p-value of the largest excess seen in the data: 
+  > cd ../../plotting/resonanceSearch/
+  > root -l -b -q pValuesFromPE.C
+
+p-values will be printed to the screen and the global p-value plot will be in the pdf/ folder.  
+
+6) Get the full 95% limit plot: 
+############################### 
+The limits are calculated by: 
+  > root -l -b -q make95Limits.C
+
+Output plot will be in the pdf/ folder. 
+
+
+
+
+

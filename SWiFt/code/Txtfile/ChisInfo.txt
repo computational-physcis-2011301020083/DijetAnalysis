@@ -1,0 +1,100 @@
+../../data1/Zee.root: mc_global_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.00065822
+CHI2 p-value of alternate global fit bkg 0.0326047
+CHI2 p-value of nominal global fit bkg 1.89255e-08
+
+../../data1/Zee.root: data_global_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.174163
+CHI2 p-value of alternate global fit bkg 0.510369
+CHI2 p-value of nominal global fit bkg 0.0151538
+
+../../data1/Zee.root: mc_highZPt100_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.943281
+CHI2 p-value of alternate global fit bkg 0.999935
+CHI2 p-value of nominal global fit bkg 0.0339255
+
+../../data1/Zee.root: data_highZPt100_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.325504
+CHI2 p-value of alternate global fit bkg 0.793738
+CHI2 p-value of nominal global fit bkg 0.0111493
+
+../../data1/Zee.root: mc_lowZPt_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 6.69844e-11
+CHI2 p-value of alternate global fit bkg 7.27114e-10
+CHI2 p-value of nominal global fit bkg 5.20975e-13
+
+../../data1/Zee.root: data_lowZPt_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.34012
+CHI2 p-value of alternate global fit bkg 0.294309
+CHI2 p-value of nominal global fit bkg 0.204332
+
+../../data1/Zee.root: mc_highZPt200_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.999998
+CHI2 p-value of alternate global fit bkg 1
+CHI2 p-value of nominal global fit bkg 0.955399
+
+../../data1/Zee.root: data_highZPt200_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.568979
+CHI2 p-value of alternate global fit bkg 0.500616
+CHI2 p-value of nominal global fit bkg 0.317179
+
+../../data1/Zee.root: mc_highZPt500_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 1
+CHI2 p-value of alternate global fit bkg 1
+CHI2 p-value of nominal global fit bkg 1
+
+../../data1/Zee.root: data_highZPt500_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.136884
+CHI2 p-value of alternate global fit bkg 0.0609388
+CHI2 p-value of nominal global fit bkg 0.0811196
+
+../../data1/Zmm.root: mc_global_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 5.10183e-05
+CHI2 p-value of alternate global fit bkg 0.00435639
+CHI2 p-value of nominal global fit bkg 3.17561e-09
+
+../../data1/Zmm.root: data_global_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.000822474
+CHI2 p-value of alternate global fit bkg 0.376812
+CHI2 p-value of nominal global fit bkg 3.0069e-09
+
+../../data1/Zmm.root: mc_highZPt100_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.574626
+CHI2 p-value of alternate global fit bkg 0.99513
+CHI2 p-value of nominal global fit bkg 0.00298404
+
+../../data1/Zmm.root: data_highZPt100_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.013032
+CHI2 p-value of alternate global fit bkg 0.52606
+CHI2 p-value of nominal global fit bkg 1.76632e-06
+
+../../data1/Zmm.root: mc_lowZPt_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 2.04462e-15
+CHI2 p-value of alternate global fit bkg 8.04752e-15
+CHI2 p-value of nominal global fit bkg 2.01138e-17
+
+../../data1/Zmm.root: data_lowZPt_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.0161243
+CHI2 p-value of alternate global fit bkg 0.0981393
+CHI2 p-value of nominal global fit bkg 0.000129145
+
+../../data1/Zmm.root: mc_highZPt200_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.999996
+CHI2 p-value of alternate global fit bkg 1
+CHI2 p-value of nominal global fit bkg 0.949571
+
+../../data1/Zmm.root: data_highZPt200_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.524089
+CHI2 p-value of alternate global fit bkg 0.961917
+CHI2 p-value of nominal global fit bkg 0.00293928
+
+../../data1/Zmm.root: mc_highZPt500_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 1
+CHI2 p-value of alternate global fit bkg 1
+CHI2 p-value of nominal global fit bkg 1
+
+../../data1/Zmm.root: data_highZPt500_LeadJ_Xmass_newbin
+CHI2 p-value of SWift bkg 0.963225
+CHI2 p-value of alternate global fit bkg 0.921698
+CHI2 p-value of nominal global fit bkg 0.861673
+

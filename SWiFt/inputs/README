@@ -1,0 +1,32 @@
+
+
+############################## 
+#
+# Smoothing the MC 
+#
+##############################
+
+To perform a fit to the MC to smooth it and then drawn pseudo-experiments from the fit, run smoothMC.C: 
+
+root -l -b -q smoothMC.C
+
+Look inside the code to set paths, select a function. 
+To generate pseudo-experiments from the fit, set the bool "doAndSavePEs" = 1. 
+Also, make sure that the folder in "outPEPath" exists before asking for pseudo-experiments.  
+
+ 
+######################################### 
+#
+# Creating signal-injection distributions 
+#
+########################################
+
+The injectSignal.C code can be used to inject a signal into any distribution. 
+It reads the interpolations from SWiFt's morphing folder and can inject a signal shape at ANY mass point. 
+This is useful for performing signal-injection studies. 
+Before running the code, please set the correct paths and other settings in the code. 
+The code also generates pseudo-experiments from the signal-injected distribution if the bool "doAndSavePEs" = 1.
+
+To run the code, do: 
+
+root -l -b -q injectSignal.C   

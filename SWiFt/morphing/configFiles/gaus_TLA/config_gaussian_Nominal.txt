@@ -1,0 +1,26 @@
+################################## Set width of gaussian shapes 
+############ can choose between mjj resolution function or a constant width
+
+##### use mjj resolution function 
+resFunc     = pol6                                                     ; resolution function 
+par         = 0.0488777                                                ; par #0 value 
+par         = -2.92624e-05                                             ; par #1 value
+par         = 1.39116e-08                                              ; par #2 value
+par         = -3.69195e-12                                             ; par #3 value
+par         = 5.48313e-16                                              ; par #4 value
+par         = -4.24416e-20                                             ; par #5 value
+par         = 1.33082e-24                                              ; par #6 value
+
+##### use fixed with 
+#resFunc      = [0]                                                      ; constant resolution function  
+#par          = 0.10                                                     ; constant width will be set to par*mass, e.g. 15%*mass
+
+################################### Name and range
+sigName   = gaus         ; signal name 
+massMin   = 400.        ; minimum mass above which you want gaussian shapes  
+massMax   = 9000.        ; maximum mass below which you want gaussian shapes 
+
+################################### Output files 
+path        = ../output/gaus_TLA                        ; folder to store all the output files in              
+pdf         = _res.pdf                                ; output pdf plot
+oRoot       = _res.root                               ; output txt file with interpolation parameters

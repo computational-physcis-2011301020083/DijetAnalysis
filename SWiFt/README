@@ -1,0 +1,141 @@
+##############################################
+
+Wei Ding, wei.ding@cern.ch
+This framework is inherited from the tool by Karishma Sekhon https://gitlab.cern.ch/ding/SWiFt .
+But fitting with nominal function and fixed window size with # of bins to the left of the window center (windowWidthLow in config_mass.txt) and # of bins to the right of the window center (windowWidthHigh in config_mass.txt) .
+
+##############################################
+
+
+
+NOTE.  
+  SWiFt works with root version 6.10/04. 
+  It does not work with version 5.34/03. 
+
+
+##################################################
+#
+# Running SWiFt
+#
+##################################################
+To run SWiFt with a config file, do the following: 
+
+cd code 
+./runSWiFt.sh ../configFiles/config_dijets_data.txt  
+
+or 
+
+cd code 
+./runSWiFt.sh ../configFiles/config_dijets_data.txt &> ../output/log/log.txt 
+ 
+The last option will direct all the output into a text file 
+
+
+
+##################################################
+#
+# The config file 
+#
+##################################################
+The SWiFt code runs over config files. They can be found in the configFiles/ folder. 
+Each section of the config is described in some detail next.  
+
+## INPUTS 
+The two inputs that SWiFt reads in are defined in the config as: 
+1) "inputFile" - Data or MC input root file that contains the binned data that SWiFt will run over. 
+                 If the histogram is stored in a TDir, then using "inputDir", you can specify its name. 
+                 "inputHist" takes the name of the histogram. 
+                 If the histogram is saved as a TH1D in the root file directly, then you can set "inputDir = x". This will tell the code to ignore the TDir structure. 
+2) "nomSigFile" - This is a root file that contains the signal parameterization in the form of TSplines and TGraphs. 
+                  The spline interpolations can be made using the morphing/ code.
+                  The "JES1upSigFile, JES1down ... " signal files need to be specified only if you are running the 95% U.L with signal systematics. 
+                  If you are not calculating the upper limit with signal systematics, then you can leave these JES signal file options empty.   
+
+## OUTPUTS 
+After SWiFt finishes running, two output files will be produced: a pdf file and a root file containing all the window fits and SWiFt outputs.
+You can specify the location and names of the SWiFt outputs in the "path", "pdfName", "oRootName" options. 
+
+## Background and Signal functions
+The background and signal functions are specified here. The definitions of the functions can be found here: code/helperFunctions/fitFunctions.C
+There are two background function: 
+1) "bkgFunc"  - the nominal background function. 
+2) "bkgFunc2" - the alternate background functions. 
+Below the functions, you can initialize the parameters of these functions. These parameters will be used to initialize the nominal and alternate global fits.
+The results of the global fits will initialize the 1st SWiFt window fits. After that, each new windows fits will be initialized from the previous window's fits.
+
+The signal function is specified from the "SonlyFunc" option. 
+The code will automatically combine the background and signal functions from the config to perform the S+B fits.
+
+## MINUIT Settings   
+SWiFt used Minuit directly to perform all the fits. 
+This will give you direct acess to all the minimizes and their settings, which is nice since MIGRAD can be a twit at times ...  
+To get the best fits and the least amount of faliures, a combination of SIMPLEX, MIGRAD and HESSE are used. 
+The fit function can be found in code/helperFunctions/statFitFunctions.C - in the minuitFit() function.
+
+To see all the initial and final fit parameters, you can set "quietFitInfo = 0". 
+To see all the detailed Minuit fit output (useful for debugging if strange things start to happen), set "quietMinuit = 0".
+
+## SWiFt SETTINGS  
+
+====> Run the LLH ratio scan
+You can use SWiFt in two ways using the "doSWiFtScan" option. 
+1) If "doSWiFtScan = 0": an optimal window size will be picked for each window by performing several nominal bkg-only fits with different window sizes. 
+                         a SWiFt background using the nominal background function with the best window size will be produced.
+2) If "doSWiFtScan = 1": this will run the full SWiFt machinary. 
+                         -> an optimal window size will be picked for each window. 
+                         -> the LLH ratio scan will be performed using the optimal window size. 
+                         -> the "best" SWiFt background will be made. 
+                         -> if the scan picks up a signal, then signal-subtraction will be performed and a new SWiFt background will be made.
+                         -> if you want, the 95% U.L. on the signal will also be calculated.  
+ 
+====> Compute 95% upper limit
+If you want to obtain the 95% upper limit, set "do95Scan = 1". This will perform a binary search for the upper limit.   
+
+
+====> Window selection
+All the window selection options are here. 
+SWiFt will automatically pick the best window size (based on the best chisquare p-value of the nominal bkg-only fit) for each window. 
+It will scan window sizes in a range, from min of "windowWidthLow" % to max of "windowWidthHigh" % of the window center. 
+The number of windows it will try for the 1st window is specified in the "windowNum" option. 
+For each successive window, it will try a total of 5 window, 2 below and above the best of the previous window.
+For windows sizes that run into the edges, i.e. windowWidthLow or windowWidthHigh, it will always try "windowNumAlways" number of sizes above or below the edge.  
+
+For example, if "windowWidthLow = 30", "windowWidthHigh = 100", "windowNum = 20" and "windowNumAlways = 3", 
+  -> For the 1st window, SWiFt will perform the nominal fit with 20 window sizes uniformly picked from the range: 30% - 100% of the window center.
+     Thus, the 20 window sizes scanned would be: 30, 33.5, 37, 40.5 ..... , 93, 96.5, 100%
+     A window size of 30% times the window center means 30% to the left and 30% to the right of the window center.
+     Eg, if the window center is at 2TeV, then a 30% window will be range from 1.4 - 2.6TeV.
+  -> For all the other windows, a total of 5 window sizes will be checked, i.e. 2 sizes below and 2 sizes above the previous windows best size.
+     Eg, say for a window center of 2TeV, the best size was 65%. 
+       Then, for the next window center of 2.1TeV, the 5 windows scanned would be 58%, 61.5%, 65%, 68.5% , 72%. 
+  -> If, for a window center, the best window picked is an edge (30% or 100%), then the next window center will always scan 3 window sizes above or below the edge. 
+
+       
+====> Binning & Ranges
+The ranges in which SWiFt operates are defined here. 
+"start" = 1st window center that will SWiFT will pick a window size around. For the S+B fits, a signal component will be centered at this mass.
+"end"   = the last window center that SWiFt will pick a window size around. 
+"xminfit" = ultimate minimum. SWiFt will see nothing below this. 
+"xmaxfit" = ultimate maximum. SWiFt will see nothing above this.
+
+For good results, its good to set "start" above "xminfit" and set "end" below "xmaxfit". 
+Eg, "start = 1500GeV", "xminfit = 1100GeV", "end = 7500GeV", "xmaxfit = 8000GeV". 
+Also, the global fits are performed in the ultimate range of "xminfit" to "xmaxfit".
+
+====> Signal subtraction   
+"sigSubLLHCut" specifies the local p-value cutoff for the signal subtraction. 
+If the LLH ratio scan picks up a signal in the data with a local p-value less than "sigSubLLHCut", then the signal is subtracted from the data and a new SWiFt background is made. This reduces the bais in the SWiFt background due to the presence of a signal.  
+
+
+## ADD SYSTEMATICS 
+
+If "addSys = 1", then the signal and flat systematics are profiled during the fits. 
+The likelihood is penalized with a gaussian term for each nuisance parameter ("numJESNP" + "numFlatNP"). 
+
+
+
+
+
+
+
+

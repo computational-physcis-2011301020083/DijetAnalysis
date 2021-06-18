@@ -1,0 +1,140 @@
+################################### Data file name to get mjj binning from   
+dataInput = /lustre/umt3/user/ksekhon/dijets/2017/data/tree/dataLikeHistograms.2016-Resonance.root        ; data input root file
+dataDir   = Nominal
+dataHist  = mjj_Data_2016_37p4fb                                                        ; name of data histogram
+
+################################### Set Numbers 
+rebin     = 20         ; rebin factor for histograms  
+sigName   = qStar      ; signal name 
+fitMin    = 220.       ; mininum x value to start fit at  
+fitMax    = 10000.     ; maximum x value to end fit at 
+histMin   = 0.         ; minimum x value of histogram 
+histMax   = 10000.     ; maximum x value of histogram 
+intBin    = 1.         ; bin size for interpolated histogram 
+massMin   = 1100.      ; mass in GeV - interpolation starting mass 
+massMax   = 7000.      ; mass in GeV - interpolation ending mass 
+refit     = 30.        ; number of random numbers to try 
+delta     = 0.15       ;
+swapStart = 1400       ; mass after which you want to swap to MC mass  
+
+################################### bool options                                                                                                       
+quietMode   = 0        ; no fit details
+autoFudge   = 0        ; use auto fudging
+
+################################### output files 
+path        = ../output/qStar_dijet       ; folder to store all the output files in              
+pdf         = _JES2_1up0.pdf              ; output pdf file
+oRoot       = _JES2_1up0.root             ; output txt file with interpolation parameters 
+
+################################### samples to run over 
+oneInFile   = 1  
+fileName    = ../input/qStar_dijet/qStar_resonance_JES2_1up0_Moriond.root
+
+MASS        = 1000.                          ; mass 
+HNAMES      = Scaled_mjj_mc15_13TeV_301298_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ1000Lambda1000f1     ; histo name 
+paramOpt    = 0 
+PAR1        = 940.                           ; gaussia average 
+PAR2        = 100.                           ; gaussian width 
+PAR3        = 0.85                           ; fraction
+PAR4        = -1000.                         ; landau average 
+PAR5        = 100.                           ; landau width 
+
+MASS        = 2000.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301299_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ2000Lambda2000f1    ; histo name 
+paramOpt    = 0 
+PAR1        = 1567.                          ; gaussia average 
+PAR2        = 390.                           ; gaussian width 
+PAR3        = 0.6                            ; fraction
+PAR4        = -1915.                         ; landau average 
+PAR5        = 73.                            ; landau width
+
+MASS        = 2500.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301300_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ2500Lambda2500f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 1912.                          ; gaussia average 
+PAR2        = 500.                           ; gaussian width 
+PAR3        = 0.5                            ; fraction
+PAR4        = -2389.                         ; landau average 
+PAR5        = 94.                            ; landau width
+
+MASS        = 3000.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301301_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ3000Lambda3000f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 2256.                          ; gaussia average 
+PAR2        = 571.                           ; gaussian width 
+PAR3        = 0.5                            ; fraction
+PAR4        = -2860.                         ; landau average 
+PAR5        = 100.                           ; landau width
+
+MASS        = 3500.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301302_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ3500Lambda3500f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 2758.                          ; gaussia average 
+PAR2        = 650.                           ; gaussian width 
+PAR3        = 0.2                            ; fraction
+PAR4        = -3337.                         ; landau average 
+PAR5        = 140.                           ; landau width
+
+MASS        = 4000.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301303_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ4000Lambda4000f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 2907.                          ; gaussia average 
+PAR2        = 730.                           ; gaussian width 
+PAR3        = 0.4                            ; fraction
+PAR4        = -3806.                         ; landau average 
+PAR5        = 151.                           ; landau width
+
+MASS        = 4500.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301304_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ4500Lambda4500f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 3159.                          ; gaussia average 
+PAR2        = 801.                           ; gaussian width 
+PAR3        = 0.4                            ; fraction
+PAR4        = -4285.                         ; landau average 
+PAR5        = 177.                           ; landau width
+
+MASS        = 5000.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301305_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ5000Lambda5000f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 4000.                          ; gaussia average 
+PAR2        = 706.                           ; gaussian width 
+PAR3        = 0.45                            ; fraction
+PAR4        = -5000.                         ; landau average 
+PAR5        = 200.                             ; landau width
+
+MASS        = 5500.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301306_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ5500Lambda5500f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 3654.                          ; gaussia average 
+PAR2        = 1050.                          ; gaussian width 
+PAR3        = 0.3                            ; fraction
+PAR4        = -5160.                         ; landau average 
+PAR5        = 240.                           ; landau width
+
+MASS        = 6000.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301307_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ6000Lambda6000f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 3840.                          ; gaussia average 
+PAR2        = 1190.                          ; gaussian width 
+PAR3        = 0.4                            ; fraction
+PAR4        = -5614.                         ; landau average 
+PAR5        = 268.                           ; landau width
+
+MASS        = 6500.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301308_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ6500Lambda6500f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 3804.                          ; gaussia average 
+PAR2        = 1365.                          ; gaussian width 
+PAR3        = 0.4                            ; fraction
+PAR4        = -6033.                         ; landau average 
+PAR5        = 310.                           ; landau width
+
+MASS        = 7000.                          ; mass
+HNAMES      = Scaled_mjj_mc15_13TeV_301309_Pythia8EvtGen_A14NNPDF23LO_ExcitedQ7000Lambda7000f1   ; histo name 
+paramOpt    = 0 
+PAR1        = 3804.                          ; gaussia average 
+PAR2        = 1365.                          ; gaussian width 
+PAR3        = 0.4                            ; fraction
+PAR4        = -6503.                         ; landau average 
+PAR5        = 310.                           ; landau width
+
